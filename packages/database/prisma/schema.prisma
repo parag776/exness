@@ -8,12 +8,38 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output = "../generated/client"
+  output   = "../generated/client"
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
+  id           String    @id @default(uuid())
+  email        String    @unique
+  lastLoggedIn DateTime?
+
+  existingTrades ExistingTrade[]
+}
+
+model Asset {
+  id       String @id @default(uuid())
+  symbol   String
+  imageUrl String
+  name     String
+  decimals Int
+
+  existingTrades ExistingTrade[]
+}
+
+model ExistingTrade {
+  id         String   @id @default(uuid())
+  openPrice  Float
+  closePrice Float
+  leverage   Float
+  pnl        Float
+  assetId    String
+  userId     String
+  liquidated Boolean
+  createdAt  DateTime @default(now())
+
+  asset Asset @relation(fields: [assetId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
 }
