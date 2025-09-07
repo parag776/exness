@@ -8,4 +8,4 @@ export default (await prisma.asset.findMany({
   select: {
     symbol: true,
   },
-})).map(({symbol}: {symbol: String})=> symbol);
+})).map(({symbol}: {symbol: string})=> symbol);

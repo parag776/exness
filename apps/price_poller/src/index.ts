@@ -1,3 +1,7 @@
-import symbols from "./symbols";
+import { catchedPrices, initialize_price_fetching } from "./fetch_price";
 
-console.log(symbols);
+initialize_price_fetching();
+
+setInterval(()=>{
+    
+}, 100)
