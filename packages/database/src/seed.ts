@@ -1,36 +1,32 @@
-import { prisma } from "./client";
+import {prisma} from "./client"
 
-import type { User } from "../generated/client";
+async function main(){
+  await prisma.asset.createMany({
+    data: [
+      {
+        symbol: "SOL",
+        imageUrl: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=040",
+        name: "solana",
+        decimals: 2
+      },
+      {
+        symbol: "BTC",
+        imageUrl: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=040",
+        name: "bitcoin",
+        decimals: 4
+      },
+      {
+        symbol: "ETH",
+        imageUrl: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=040",
+        name: "ethereum",
+        decimals: 4
+      }
+    ]})
+}
 
-const DEFAULT_USERS = [
-  // Add your own user to pre-populate the database with
-  {
-    name: "Tim Apple",
-    email: "tim@apple.com",
-  },
-] as Array<Partial<User>>;
+main().then(()=>{
+  console.log("seeded successfully");
+}).catch((e)=>{
+  console.log(e);
+})
 
-(async () => {
-  try {
-    await Promise.all(
-      DEFAULT_USERS.map((user) =>
-        prisma.user.upsert({
-          where: {
-            email: user.email!,
-          },
-          update: {
-            ...user,
-          },
-          create: {
-            ...user,
-          },
-        })
-      )
-    );
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  } finally {
-    await prisma.$disconnect();
-  }
-})();
