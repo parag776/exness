@@ -16,30 +16,29 @@ model User {
   email        String    @unique
   lastLoggedIn DateTime?
 
-  existingTrades ExistingTrade[]
+  closedPositions ClosedPosition[]
 }
 
 model Asset {
-  id       String @id @default(uuid())
-  symbol   String
+  symbol   String @id
   imageUrl String
   name     String
   decimals Int
 
-  existingTrades ExistingTrade[]
+  closedPositions ClosedPosition[]
 }
 
-model ExistingTrade {
+model ClosedPosition {
   id         String   @id @default(uuid())
   openPrice  Float
   closePrice Float
   leverage   Float
   pnl        Float
-  assetId    String
+  symbol    String
   userId     String
   liquidated Boolean
   createdAt  DateTime @default(now())
 
-  asset Asset @relation(fields: [assetId], references: [id])
+  asset Asset @relation(fields: [symbol], references: [symbol])
   user  User  @relation(fields: [userId], references: [id])
 }
