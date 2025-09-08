@@ -1,7 +1,7 @@
 import { catchedPrices, initialize_price_fetching } from "./fetch_price";
 import { redis } from "@repo/cache"
 import {symbolToDecimal} from "./symbols";
-import {EngineFeed} from "@repo/types";
+import type {EngineFeed} from "@repo/types";
 
 initialize_price_fetching();
 

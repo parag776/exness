@@ -18,7 +18,7 @@ export type User = {
     margin: number,
 }
 
-export type OpenOrder = {
+export type OpenPosition = {
     id: string,
     userId: string,
     side: Side,
@@ -28,11 +28,28 @@ export type OpenOrder = {
     quantity: number
 }
 
-export type EngineFeed = Prettify<{
+export type ClosedPosition = {
+    id: string,
+    userId: string,
+    side: Side,
+    symbol: string,
+    leverage: number,
+    openPrice: number,
+    closedPrice: number,
+    pnl: number,
+    liquidated: boolean,
+    createdAt: Date
+}
+
+export type EngineFeed = {
     type: "spread",
     symbol: string,
-    bid: number,
-    ask: number,
-} | ({
-    type: "trade",
-} & TradeCreate)>
+    bid: string,
+    ask: string,
+} | {
+    type: "spread",
+    symbol: string,
+    quantity: string,
+    side: Side,
+    leverage: string,
+}

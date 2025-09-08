@@ -5,6 +5,7 @@ import crypto from "crypto"
 import {redis} from "@repo/cache"
 import {prisma} from "@repo/database"
 import jwt from "jsonwebtoken"
+import type {TradeCreate} from "@repo/types"
 
 import "dotenv/config";
 
@@ -111,7 +112,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) =>{
 app.post("/api/v1/trade/create", auth, (req: CustomRequest, res)=>{
     try {
 
-        const trade = req.body;
+        const trade: TradeCreate = req.body;
 
     } catch(e){
         res.json({err: ""})
