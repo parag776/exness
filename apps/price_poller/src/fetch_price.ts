@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
 import "dotenv/config"
-import symbols from "./symbols";
+import {symbols} from "./symbols";
 
 
 const subscriptionParams = symbols.map((symbol)=>{
@@ -8,7 +8,7 @@ const subscriptionParams = symbols.map((symbol)=>{
 });
 const subscriptionObj = {method:"SUBSCRIBE",params: subscriptionParams,"id":2}	
 // price catched
-export const catchedPrices: Map<string,number> = new Map(symbols.map(symbol => [symbol, 0]));
+export const catchedPrices: Map<string,number> = new Map(symbols.map((symbol) => [symbol, 0]));
 
 type WsPriceData = {
     stream: string,

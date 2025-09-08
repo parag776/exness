@@ -1,3 +1,7 @@
+export type Prettify<T> = {
+    [K in keyof T]: T[K]
+} & {}
+
 export type Side = "BUY" | "SELL";
 
 export type TradeCreate = {
@@ -24,4 +28,11 @@ export type OpenOrder = {
     quantity: number
 }
 
-
+export type EngineFeed = Prettify<{
+    type: "spread",
+    symbol: string,
+    bid: number,
+    ask: number,
+} | ({
+    type: "trade",
+} & TradeCreate)>
